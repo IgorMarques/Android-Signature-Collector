@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.samsung.spensdk3.example"
+    android:versionCode="3"
+    android:versionName="3.0" xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="19" />
+    
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY" />
+    
+    <application android:allowBackup="true" android:icon="@drawable/ic_launcher" android:label="@string/app_name" android:theme="@style/AppTheme" android:largeHeap="true" >
+
+        <activity android:name="com.samsung.spensdk3.example.Spen_ProgramGuide" android:configChanges="locale|orientation|keyboard|screenSize" android:label="@string/app_name">
+            
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" /><category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.samsung.android.sdk.pen.pg.example1_1.PenSample1_1_HelloPen"
+            android:label="PenSample1_1_HelloPen"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example1_2.PenSample1_2_PenSetting"
+            android:label="PenSample1_2_PenSetting"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example1_3.PenSample1_3_EraserSetting"
+            android:label="PenSample1_3_EraserSetting"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example1_4.PenSample1_4_UndoRedo"
+            android:label="PenSample1_4_UndoRedo"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example1_5.PenSample1_5_Background"
+            android:label="PenSample1_5_Background"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example1_6.PenSample1_6_Replay"
+            android:label="PenSample1_6_Replay"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example1_7.PenSample1_7_Capture"
+            android:label="PenSample1_7_Capture"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example1_8.PenSample1_8_CustomDrawing"
+            android:label="PenSample1_8_CustomDrawing"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.TransparentEdited">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example1_9.PenSample1_9_NotePad"
+            android:label="PenSample1_9_NotePad"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example2_1.PenSample2_1_ImageObject"
+            android:label="PenSample2_1_ImageObject"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example2_2.PenSample2_2_TextObject"
+            android:label="PenSample2_2_TextObject"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example2_3.PenSample2_3_StrokeObject"
+            android:label="PenSample2_3_StrokeObject"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example2_4.PenSample2_4_SaveFile"
+            android:label="PenSample2_4_SaveFile"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example2_5.PenSample2_5_LoadFile"
+            android:label="PenSample2_5_LoadFile"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example2_6.PenSample2_6_AttachFile"
+            android:label="PenSample2_6_AttachFil"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example2_7.PenSample2_7_AddPage"
+            android:label="PenSample2_7_AddPage"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example3_1.PenSample3_1_SelectObject"
+            android:label="PenSample3_1_SelectObject"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example3_2.PenSample3_2_SelectionSetting"
+            android:label="PenSample3_2_SelectionSetting"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example3_3.PenSample3_3_Group"
+            android:label="PenSample3_3_Group"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example3_4.PenSample3_4_MoveObject"
+            android:label="PenSample3_4_MoveObject"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example4_1.PenSample4_1_SOR"
+            android:label="PenSample4_1_SOR"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example4_2.PenSample4_2_SORList"
+            android:label="PenSample4_2_SORList"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example5_1.PenSample5_1_SmartScroll"
+            android:label="PenSample5_1_SmartScroll"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example5_2.PenSample5_2_SmartZoom"
+            android:label="PenSample5_2_SmartZoom"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example5_3.PenSample5_3_SimpleView"
+            android:label="PenSample5_3_SimpleView"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example5_4.PenSample5_4_TemporaryStroke"
+            android:label="PenSample5_4_TemporaryStroke"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example5_5.PenSample5_5_OnlyPen"
+            android:label="PenSample5_5_OnlyPen"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example5_6.PenSample5_6_TextRecognition"
+            android:label="PenSample5_6_TextRecognition"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example5_7.PenSample5_7_Signature"
+            android:label="PenSample5_7_Signature"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example5_7.PenSample5_7_SignatureRegistration"
+            android:label="PenSample5_7_Signature"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example5_7.PenSample5_7_SignatureVerification"
+            android:label="PenSample5_7_Signature"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example5_8.PenSample5_8_StrokeFrame"
+            android:label="PenSample5_8_StrokeFrame"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example5_9.PenSample5_9_ShapeRecognition"
+            android:label="PenSample5_9_ShapeRecognition"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+            <activity android:name="com.samsung.android.sdk.pen.pg.example5_10.PenSample5_10_EquationRecognition"
+            android:label="PenSample5_10_EquationRecognition"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example6_1.PenSample6_1_TiltOrientation"
+            android:label="PenSample6_1_TiltOrientation"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name="com.samsung.android.sdk.pen.pg.example6_2.PenSample6_2_TemplatePage"
+            android:label="PenSample6_2_TemplatePage"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
+    </application>
+
+</manifest>
