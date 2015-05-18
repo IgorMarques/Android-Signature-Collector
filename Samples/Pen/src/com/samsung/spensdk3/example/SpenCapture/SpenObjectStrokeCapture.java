@@ -9,8 +9,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -31,7 +33,10 @@ import com.samsung.android.sdk.pen.engine.SpenTouchListener;
 import com.samsung.android.sdk.pen.settingui.SpenSettingPenLayout;
 import com.samsung.spensdk3.example.R;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  * Created by igormarquessilva on 11/05/15.
@@ -53,7 +58,9 @@ public class SpenObjectStrokeCapture extends Activity {
     private SpenSettingPenLayout mPenSettingView;
     private Context mContext;
     private int mMode = MODE_PEN;
+    private MediaScannerConnection msConn = null;
     private int mToolType = SpenSurfaceView.TOOL_SPEN;
+    private Toast mToast = null;
 
 
     @Override
@@ -61,6 +68,7 @@ public class SpenObjectStrokeCapture extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hello_pen);
         mContext = this;
+        mToast = Toast.makeText(mContext, "", Toast.LENGTH_SHORT);
 
         // Initialize Spen
         boolean isSpenFeatureEnabled = false;
@@ -294,6 +302,65 @@ public class SpenObjectStrokeCapture extends Activity {
         realRect.set((x - width / 2) / zoom + panX, (y - height / 2) / zoom + panY, (x + width / 2) / zoom + panX,
                 (y + height / 2) / zoom + panY);
         return realRect;
+    }
+
+    private void scanImage(final String imageFileName) {
+        msConn = new MediaScannerConnection(mContext, new MediaScannerConnection.MediaScannerConnectionClient() {
+            @Override
+            public void onMediaScannerConnected() {
+                try {
+                    msConn.scanFile(imageFileName, null);
+                } catch (Exception e) {
+                    mToast.setText("Please wait for store image file.");
+                    mToast.show();
+                }
+            }
+
+            @Override
+            public void onScanCompleted(String path, Uri uri) {
+                msConn.disconnect();
+                msConn = null;
+            }
+        });
+        msConn.connect();
+    }
+    private void captureSpenSurfaceView() {
+        // Set save directory for a captured image.
+        String filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/SPen/images";
+        File fileCacheItem = new File(filePath);
+        if (!fileCacheItem.exists()) {
+            if (!fileCacheItem.mkdirs()) {
+                Toast.makeText(mContext, "Save Path Creation Error", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+        filePath = fileCacheItem.getPath() + "/CaptureImg.png";
+
+        // Capture an image and save it as bitmap.
+        Bitmap imgBitmap = mSpenSurfaceView.captureCurrentView(true);
+
+        OutputStream out = null;
+        try {
+            // Save a captured bitmap image to the directory.
+            out = new FileOutputStream(filePath);
+            imgBitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+            mToast.setText("Captured images were stored in the file \'CaptureImg.png\'.");
+            mToast.show();
+        } catch (Exception e) {
+            Toast.makeText(mContext, "Capture failed.", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+
+                scanImage(filePath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        imgBitmap.recycle();
     }
 
 }
