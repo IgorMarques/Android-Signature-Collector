@@ -165,6 +165,10 @@
             android:label="PenSample6_2_TemplatePage"
             android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
         </activity>
+        <activity android:name="com.samsung.spensdk3.example.SpenCapture.SpenObjectStrokeCapture"
+            android:label="SpenObjectStrokeCapture"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+        </activity>
     </application>
 
 </manifest>

@@ -12,7 +12,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import com.samsung.android.sdk.pen.pg.example1_1.PenSample1_1_HelloPen;
+
 import com.samsung.android.sdk.pen.pg.example1_2.PenSample1_2_PenSetting;
 import com.samsung.android.sdk.pen.pg.example1_3.PenSample1_3_EraserSetting;
 import com.samsung.android.sdk.pen.pg.example1_4.PenSample1_4_UndoRedo;
@@ -46,6 +46,7 @@ import com.samsung.android.sdk.pen.pg.example5_9.PenSample5_9_ShapeRecognition;
 import com.samsung.android.sdk.pen.pg.example5_10.PenSample5_10_EquationRecognition;
 import com.samsung.android.sdk.pen.pg.example6_1.PenSample6_1_TiltOrientation;
 import com.samsung.android.sdk.pen.pg.example6_2.PenSample6_2_TemplatePage;
+import com.samsung.spensdk3.example.SpenCapture.SpenObjectStrokeCapture;
 
 public class Spen_ProgramGuide extends Activity {
 
@@ -53,7 +54,8 @@ public class Spen_ProgramGuide extends Activity {
     private ListView mListView = null;
 
     // The item of list
-    private static final int SPEN_HELLOPEN = 0;
+//    private static final int SPEN_HELLOPEN = 0;
+    private static final int MY_EXAMPLE = 0;
     private static final int SPEN_PENSETTING = 1;
     private static final int SPEN_ERASERSETTING = 2;
     private static final int SPEN_UNDOREDO = 3;
@@ -96,6 +98,7 @@ public class Spen_ProgramGuide extends Activity {
     private static final int TOTAL_LIST_NUM = 34;
 
     private final String EXAMPLE_NAMES[] = {
+            "MyExample",
             "Hello Pen",
             "Pen Setting",
             "Eraser Setting",
@@ -158,8 +161,8 @@ public class Spen_ProgramGuide extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // S Pen SDK Demo programs
-                if (position == SPEN_HELLOPEN) {
-                    Intent intent = new Intent(Spen_ProgramGuide.this, PenSample1_1_HelloPen.class);
+                if (position == MY_EXAMPLE) {
+                    Intent intent = new Intent(Spen_ProgramGuide.this, SpenObjectStrokeCapture.class);
                     startActivity(intent);
                 } else if (position == SPEN_PENSETTING) {
                     Intent intent = new Intent(Spen_ProgramGuide.this, PenSample1_2_PenSetting.class);
