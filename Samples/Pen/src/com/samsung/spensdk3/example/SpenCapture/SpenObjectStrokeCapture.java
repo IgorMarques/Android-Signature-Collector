@@ -16,6 +16,7 @@ import android.os.Environment;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.content.Context;
@@ -32,11 +33,13 @@ import com.samsung.android.sdk.pen.engine.SpenSurfaceView;
 import com.samsung.android.sdk.pen.engine.SpenTouchListener;
 import com.samsung.android.sdk.pen.settingui.SpenSettingPenLayout;
 import com.samsung.spensdk3.example.R;
+import android.widget.Button;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 /**
  * Created by igormarquessilva on 11/05/15.
@@ -61,7 +64,19 @@ public class SpenObjectStrokeCapture extends Activity {
     private MediaScannerConnection msConn = null;
     private int mToolType = SpenSurfaceView.TOOL_SPEN;
     private Toast mToast = null;
+    private ArrayList<SignaturePoint> signature = new ArrayList<SignaturePoint>();
 
+    public class SignaturePoint {
+        public float x;
+        public float y;
+        public int timestamp;
+
+        public SignaturePoint(float x, float y, int timestamp){
+            this.x = x;
+            this.y = y;
+            this.timestamp = timestamp;
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -128,6 +143,33 @@ public class SpenObjectStrokeCapture extends Activity {
                     "Device does not support Spen. \n You can draw stroke by finger.",
                     Toast.LENGTH_SHORT).show();
         }
+
+        Button btn = (Button) this.findViewById(R.id.saveButton);
+
+        btn.bringToFront();
+
+        final EditText idInput = (EditText) this.findViewById(R.id.userId);
+
+        idInput.bringToFront();
+
+        btn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                String fileName = idInput.getText().toString();
+
+                String string = "Hello world!";
+                FileOutputStream outputStream;
+
+                try {
+                    outputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
+                    outputStream.write(string.getBytes());
+                    outputStream.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
     }
 
@@ -277,6 +319,9 @@ public class SpenObjectStrokeCapture extends Activity {
                             points[i].y = strokePoint[i][1];
                             pressures[i] = 1;
                             timestamps[i] = (int) android.os.SystemClock.uptimeMillis();
+
+                            signature.add(new SignaturePoint(points[i].x, points[i].y, timestamps[i]));
+
                         }
 
                         SpenObjectStroke strokeObj = new SpenObjectStroke(mPenSettingView.getInfo().name, points,

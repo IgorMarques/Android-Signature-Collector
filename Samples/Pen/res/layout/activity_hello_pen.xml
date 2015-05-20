@@ -4,4 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PenSample1_1_HelloPen" >
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SALVAR ASSINATURA"
+        android:id="@+id/saveButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/userId"
+        android:minWidth="90dp"
+        android:layout_alignBottom="@+id/saveButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/saveButton"
+        android:layout_toStartOf="@+id/saveButton"
+        android:background="#ffffffff"
+        android:layout_alignTop="@+id/saveButton"
+        android:hint="INDENTIFICADOR DO DOADOR" />
 </RelativeLayout>
