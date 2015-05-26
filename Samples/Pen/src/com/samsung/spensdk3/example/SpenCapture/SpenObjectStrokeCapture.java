@@ -35,11 +35,14 @@ import com.samsung.android.sdk.pen.settingui.SpenSettingPenLayout;
 import com.samsung.spensdk3.example.R;
 import android.widget.Button;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by igormarquessilva on 11/05/15.
@@ -65,6 +68,8 @@ public class SpenObjectStrokeCapture extends Activity {
     private int mToolType = SpenSurfaceView.TOOL_SPEN;
     private Toast mToast = null;
     private ArrayList<SignaturePoint> signature = new ArrayList<SignaturePoint>();
+    private ArrayList<MotionEvent> pointsVector = new ArrayList<MotionEvent>();
+    private EditText mEdit;
 
     public class SignaturePoint {
         public float x;
@@ -137,6 +142,15 @@ public class SpenObjectStrokeCapture extends Activity {
         // Set PageDoc to View.
         mSpenSurfaceView.setPageDoc(mSpenPageDoc, true);
 
+        mSpenSurfaceView.setTouchListener(new SpenTouchListener() {
+              @Override
+              public boolean onTouch(View view, MotionEvent motionEvent) {
+                  pointsVector.add(motionEvent);
+                  return false;
+              }
+          }
+        );
+
         if(isSpenFeatureEnabled == false) {
             mSpenSurfaceView.setToolTypeAction(SpenSurfaceView.TOOL_FINGER, SpenSurfaceView.ACTION_STROKE);
             Toast.makeText(mContext,
@@ -152,21 +166,44 @@ public class SpenObjectStrokeCapture extends Activity {
 
         idInput.bringToFront();
 
+
         btn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                String fileName = idInput.getText().toString();
 
-                String string = "Hello world!";
-                FileOutputStream outputStream;
+                mEdit   = (EditText)findViewById(R.id.userId);
+
+                String filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/SPen/images";
+                File fileCacheItem = new File(filePath);
+                if (!fileCacheItem.exists()) {
+                    if (!fileCacheItem.mkdirs()) {
+                        Toast.makeText(mContext, "Save Path Creation Error", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                filePath = fileCacheItem.getPath() + "/" + mEdit.getText().toString() + ".txt";
+
+                // Capture an image and save it as bitmap.
+                Bitmap imgBitmap = mSpenSurfaceView.captureCurrentView(true);
+
+                OutputStream out = null;
+                String string = Arrays.toString(pointsVector.toArray());
 
                 try {
-                    outputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
-                    outputStream.write(string.getBytes());
-                    outputStream.close();
+                    // Save a captured bitmap image to the directory.
+                    out = new FileOutputStream(filePath);
+
+                    out.write(string.getBytes());
+
+                    out.flush();
+
+                    out.close();
                 } catch (Exception e) {
                     e.printStackTrace();
+                    Toast.makeText(mContext, string,
+                            Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             }
         });
