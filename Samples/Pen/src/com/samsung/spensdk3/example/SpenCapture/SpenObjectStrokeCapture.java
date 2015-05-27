@@ -43,6 +43,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by igormarquessilva on 11/05/15.
@@ -69,6 +71,7 @@ public class SpenObjectStrokeCapture extends Activity {
     private Toast mToast = null;
     private ArrayList<SignaturePoint> signature = new ArrayList<SignaturePoint>();
     private ArrayList<MotionEvent> pointsVector = new ArrayList<MotionEvent>();
+
     private EditText mEdit;
 
     public class SignaturePoint {
@@ -81,6 +84,22 @@ public class SpenObjectStrokeCapture extends Activity {
             this.y = y;
             this.timestamp = timestamp;
         }
+    }
+
+    public class SignPoint{
+        float axisXValue;
+        float axisYValue;
+        float eventTime;
+        float orientation;
+        float pressure;
+        float rawX;
+        float rawY;
+        float toolMajor;
+        float toolMinor;
+        float size;
+        float touchMajor;
+        float touchMinor;
+        float getPressure;
     }
 
     @Override
@@ -143,9 +162,45 @@ public class SpenObjectStrokeCapture extends Activity {
         mSpenSurfaceView.setPageDoc(mSpenPageDoc, true);
 
         mSpenSurfaceView.setTouchListener(new SpenTouchListener() {
+
+
               @Override
               public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                  SignPoint signPoint = new SignPoint();
+
                   pointsVector.add(motionEvent);
+
+                  signPoint.addAxisValue(motionEvent.getAxisValue(MotionEvent.AXIS_X));
+                  signPoint.addAxisValue(e.getAxisValue(MotionEvent.AXIS_Y));
+                  signPoint.addEventTime(e.getEventTime());
+                  signPoint.addOrientation(e.getOrientation());
+                  signPoint.addPressure(e.getPressure());
+                  signPoint.addRawX(e.getRawX());
+                  signPoint.addRawY(e.getRawY());
+                  signPoint.addToolMajor(e.getToolMajor());
+                  signPoint.addToolMinor(e.getToolMinor());
+                  signPoint.addSize(e.getSize());
+                  signPoint.addTouchMajor(e.getTouchMajor());
+                  signPoint.addTouchMinor(e.getTouchMinor());
+                  signPoint.addgetPressure(e.getPressure());
+
+                  signPoint.axisXValue =(motionEvent.getAxisValue(MotionEvent.AXIS_X));
+                  signPoint.axisYValue = (motionEvent.getAxisValue(MotionEvent.AXIS_Y));
+                  signPoint.eventTime
+                  signPoint.orientation
+                  signPoint.pressure
+                  signPoint.rawX
+                  signPoint.rawY
+                  signPoint.toolMajor
+                  signPoint.toolMinor
+                  signPoint.size
+                  signPoint.touchMajor
+                  signPoint.touchMinor
+                  signPoint.getPressure
+
+              }
+
                   return false;
               }
           }
@@ -174,7 +229,9 @@ public class SpenObjectStrokeCapture extends Activity {
 
                 mEdit   = (EditText)findViewById(R.id.userId);
 
-                String filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/SPen/images";
+                Date d = new Date();
+
+                String filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/SPen/signatures";
                 File fileCacheItem = new File(filePath);
                 if (!fileCacheItem.exists()) {
                     if (!fileCacheItem.mkdirs()) {
@@ -182,13 +239,47 @@ public class SpenObjectStrokeCapture extends Activity {
                         return;
                     }
                 }
-                filePath = fileCacheItem.getPath() + "/" + mEdit.getText().toString() + ".txt";
+                filePath = fileCacheItem.getPath() + "/" + mEdit.getText().toString() + "_" + d.getTime() + ".txt";
 
                 // Capture an image and save it as bitmap.
                 Bitmap imgBitmap = mSpenSurfaceView.captureCurrentView(true);
 
                 OutputStream out = null;
-                String string = Arrays.toString(pointsVector.toArray());
+
+                StringBuilder sb = new StringBuilder();
+
+                for(MotionEvent e : pointsVector){
+                    sb.append(e.getAxisValue(MotionEvent.AXIS_X));
+                    sb.append(";");
+                    sb.append(e.getAxisValue(MotionEvent.AXIS_Y));
+                    sb.append(";");
+                    sb.append(e.getEventTime());
+                    sb.append(";");
+                    sb.append(e.getOrientation());
+                    sb.append(";");
+                    sb.append(e.getPressure());
+                    sb.append(";");
+                    sb.append(e.getRawX());
+                    sb.append(";");
+                    sb.append(e.getRawY());
+                    sb.append(";");
+                    sb.append(e.getToolMajor());
+                    sb.append(";");
+                    sb.append(e.getToolMinor());
+                    sb.append(";");
+                    sb.append(e.getSize());
+                    sb.append(";");
+                    sb.append(e.getTouchMajor());
+                    sb.append(";");
+                    sb.append(e.getTouchMinor());
+                    sb.append(";");
+                    sb.append(e.getPressure());
+                    sb.append(";");
+                    sb.append(e.getRawX());
+                    sb.append("\n");
+                }
+
+                String string = sb.toString();
 
                 try {
                     // Save a captured bitmap image to the directory.
@@ -201,7 +292,7 @@ public class SpenObjectStrokeCapture extends Activity {
                     out.close();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(mContext, string,
+                    Toast.makeText(mContext, "Deu treta",
                             Toast.LENGTH_SHORT).show();
                     finish();
                 }
