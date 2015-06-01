@@ -171,35 +171,19 @@ public class SpenObjectStrokeCapture extends Activity {
 
                   pointsVector.add(motionEvent);
 
-                  signPoint.addAxisValue(motionEvent.getAxisValue(MotionEvent.AXIS_X));
-                  signPoint.addAxisValue(e.getAxisValue(MotionEvent.AXIS_Y));
-                  signPoint.addEventTime(e.getEventTime());
-                  signPoint.addOrientation(e.getOrientation());
-                  signPoint.addPressure(e.getPressure());
-                  signPoint.addRawX(e.getRawX());
-                  signPoint.addRawY(e.getRawY());
-                  signPoint.addToolMajor(e.getToolMajor());
-                  signPoint.addToolMinor(e.getToolMinor());
-                  signPoint.addSize(e.getSize());
-                  signPoint.addTouchMajor(e.getTouchMajor());
-                  signPoint.addTouchMinor(e.getTouchMinor());
-                  signPoint.addgetPressure(e.getPressure());
-
-                  signPoint.axisXValue =(motionEvent.getAxisValue(MotionEvent.AXIS_X));
-                  signPoint.axisYValue = (motionEvent.getAxisValue(MotionEvent.AXIS_Y));
-                  signPoint.eventTime
-                  signPoint.orientation
-                  signPoint.pressure
-                  signPoint.rawX
-                  signPoint.rawY
-                  signPoint.toolMajor
-                  signPoint.toolMinor
-                  signPoint.size
-                  signPoint.touchMajor
-                  signPoint.touchMinor
-                  signPoint.getPressure
-
-              }
+                  signPoint.axisXValue    = (motionEvent.getAxisValue(MotionEvent.AXIS_X));
+                  signPoint.axisYValue    = (motionEvent.getAxisValue(MotionEvent.AXIS_Y));
+                  signPoint.eventTime     = (motionEvent.getEventTime());
+                  signPoint.orientation   = (motionEvent.getOrientation());
+                  signPoint.pressure      = (motionEvent.getPressure());
+                  signPoint.rawX          = (motionEvent.getRawX());
+                  signPoint.rawY          = (motionEvent.getRawY());
+                  signPoint.toolMajor     = (motionEvent.getToolMajor());
+                  signPoint.toolMinor     = (motionEvent.getToolMinor());
+                  signPoint.size          = (motionEvent.getSize());
+                  signPoint.touchMajor    = (motionEvent.getTouchMajor());
+                  signPoint.touchMinor    = (motionEvent.getTouchMinor());
+                  signPoint.getPressure   = (motionEvent.getPressure());
 
                   return false;
               }
