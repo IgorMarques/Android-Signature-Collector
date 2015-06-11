@@ -70,7 +70,7 @@ public class SpenObjectStrokeCapture extends Activity {
     private int mToolType = SpenSurfaceView.TOOL_SPEN;
     private Toast mToast = null;
     private ArrayList<SignaturePoint> signature = new ArrayList<SignaturePoint>();
-    private ArrayList<MotionEvent> pointsVector = new ArrayList<MotionEvent>();
+    private ArrayList<SignPoint> pointsVector = new ArrayList<SignPoint>();
 
     private EditText mEdit;
 
@@ -89,7 +89,7 @@ public class SpenObjectStrokeCapture extends Activity {
     public class SignPoint{
         float axisXValue;
         float axisYValue;
-        float eventTime;
+        long eventTime;
         float orientation;
         float pressure;
         float rawX;
@@ -169,21 +169,21 @@ public class SpenObjectStrokeCapture extends Activity {
 
                   SignPoint signPoint = new SignPoint();
 
-                  pointsVector.add(motionEvent);
+                  int i = motionEvent.getActionIndex();
 
                   signPoint.axisXValue    = (motionEvent.getAxisValue(MotionEvent.AXIS_X));
                   signPoint.axisYValue    = (motionEvent.getAxisValue(MotionEvent.AXIS_Y));
                   signPoint.eventTime     = (motionEvent.getEventTime());
-                  signPoint.orientation   = (motionEvent.getOrientation());
-                  signPoint.pressure      = (motionEvent.getPressure());
+                  signPoint.pressure      = (motionEvent.getPressure(i));
                   signPoint.rawX          = (motionEvent.getRawX());
                   signPoint.rawY          = (motionEvent.getRawY());
-                  signPoint.toolMajor     = (motionEvent.getToolMajor());
-                  signPoint.toolMinor     = (motionEvent.getToolMinor());
-                  signPoint.size          = (motionEvent.getSize());
-                  signPoint.touchMajor    = (motionEvent.getTouchMajor());
-                  signPoint.touchMinor    = (motionEvent.getTouchMinor());
-                  signPoint.getPressure   = (motionEvent.getPressure());
+//                  signPoint.toolMajor     = (motionEvent.getToolMajor(i));
+//                  signPoint.toolMinor     = (motionEvent.getToolMinor(i));
+//                  signPoint.size          = (motionEvent.getSize(i));
+//                  signPoint.touchMajor    = (motionEvent.getTouchMajor(i));
+//                  signPoint.touchMinor    = (motionEvent.getTouchMinor(i));
+
+                  pointsVector.add(signPoint);
 
                   return false;
               }
@@ -232,34 +232,31 @@ public class SpenObjectStrokeCapture extends Activity {
 
                 StringBuilder sb = new StringBuilder();
 
-                for(MotionEvent e : pointsVector){
-                    sb.append(e.getAxisValue(MotionEvent.AXIS_X));
+                for(SignPoint signPoint : pointsVector){
+                    sb.append(signPoint.axisXValue);
                     sb.append(";");
-                    sb.append(e.getAxisValue(MotionEvent.AXIS_Y));
+                    sb.append(signPoint.axisYValue);
                     sb.append(";");
-                    sb.append(e.getEventTime());
+                    sb.append(signPoint.eventTime);
+                    sb.append(";");;
+//                    sb.append(signPoint.pressure);
+                    sb.append(String.format("%.10f", signPoint.pressure));
                     sb.append(";");
-                    sb.append(e.getOrientation());
+                    sb.append(signPoint.rawX);
                     sb.append(";");
-                    sb.append(e.getPressure());
+                    sb.append(signPoint.rawY);
                     sb.append(";");
-                    sb.append(e.getRawX());
-                    sb.append(";");
-                    sb.append(e.getRawY());
-                    sb.append(";");
-                    sb.append(e.getToolMajor());
-                    sb.append(";");
-                    sb.append(e.getToolMinor());
-                    sb.append(";");
-                    sb.append(e.getSize());
-                    sb.append(";");
-                    sb.append(e.getTouchMajor());
-                    sb.append(";");
-                    sb.append(e.getTouchMinor());
-                    sb.append(";");
-                    sb.append(e.getPressure());
-                    sb.append(";");
-                    sb.append(e.getRawX());
+//                    sb.append(signPoint.toolMajor);
+//                    sb.append(";");
+//                    sb.append(signPoint.toolMinor);
+//                    sb.append(";");
+//                    sb.append(signPoint.size);
+//                    sb.append(";");
+//                    sb.append(signPoint.touchMajor);
+//                    sb.append(";");
+//                    sb.append(signPoint.touchMinor);
+//                    sb.append(";");
+//                    sb.append(signPoint.getPressure);
                     sb.append("\n");
                 }
 
